@@ -5,14 +5,14 @@ import styled from 'styled-components';
 
 function Popular() {
   const { popularAnime, isSearch } = useGlobalContext();
-  console.log(popularAnime);
+  // console.log(popularAnime);
   
   const conditionalRender = () => {
     if(!isSearch) {
       return popularAnime.map((anime) => {
-        console.log(anime);
-        return <Link to={`/anime/${anime.mal_id}`}>
-          <img src={anime.images.jpg.large_image_url} />
+        // console.log(anime);
+        return <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id} >
+                  <img src={anime.images.jpg.large_image_url} alt='' />
         </Link>
         
       })
@@ -45,6 +45,12 @@ const PopularStyled = styled.div`
             height: 500px;
             border-radius: 7px;
             border: 5px solid #e5e7eb;
+        }
+        a img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 5px;
         }
     }
 `;
