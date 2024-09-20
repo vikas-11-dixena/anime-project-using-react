@@ -10,7 +10,7 @@ const SEARCH = "SEARCH";
 const GET_POPULAR_ANIME = "GET_POPULAR_ANIME";
 const GET_UPCOMING_ANIME = "GET_UPCOMING_ANIME";
 const GET_AIRING_ANIME = "GET_AIRING_ANIME";
-const SET_SEARCH_STATUS = "SET_SEARCH_STATUS";
+const GET_PICTURES = "GET_PICTURES"
 
 // reducer
 const reducer = (state, action) => {
@@ -25,8 +25,8 @@ const reducer = (state, action) => {
             return { ...state, upcomingAnime: action.payload, loading: false };
         case GET_AIRING_ANIME:
             return { ...state, airingAnime: action.payload, loading: false };
-        case SET_SEARCH_STATUS:
-            return { ...state, isSearch: action.payload };
+        case GET_PICTURES:
+            return { ...state, pictures: action.payload, loading: false };
         default:
             return state;
     }
@@ -52,7 +52,7 @@ export const GlobalContextProvider = ({ children }) => {
     const handleChange = (e) => {
         setSearch(e.target.value);
         if(e.target.value === '') {
-            dispatch({ type: SET_SEARCH_STATUS, payload: false });
+            state.isSearch = false;
         }
     }
 
@@ -61,9 +61,9 @@ export const GlobalContextProvider = ({ children }) => {
         e.preventDefault();
         if(search) {
             searchAnime(search);
-            dispatch({ type: SET_SEARCH_STATUS, payload: true });
+            state.isSearch = true;
         } else {
-            dispatch({ type: SET_SEARCH_STATUS, payload: false });
+            state.isSearch = false;
             alert('Please enter a search term');
         }
     }
@@ -101,6 +101,14 @@ export const GlobalContextProvider = ({ children }) => {
         dispatch({type: SEARCH, payload: data.data});
     }
 
+    // get anime pictures
+    const getAnimePictures = async (id) => {
+        dispatch({type: LOADING});
+        const response = await fetch(`${baseUrl}/characters/${id}/pictures`);
+        const data = await response.json();
+        dispatch({type: GET_PICTURES, payload: data.data});
+    }
+
     useEffect(() => {
         getPopularAnime();
     }, [])
@@ -114,7 +122,8 @@ export const GlobalContextProvider = ({ children }) => {
             search,
             getPopularAnime,
             getAiringAnime,
-            getUpcomingAnime  // Included in the value object
+            getUpcomingAnime,  // Included in the value object
+            getAnimePictures
         }}>
             {children}
         </GlobalContext.Provider>
