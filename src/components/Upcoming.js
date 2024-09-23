@@ -14,7 +14,7 @@ function Upcoming({ rendered }) {
                 </Link>
             ));
         } else {
-            return searchResults.map((anime) => (
+            return searchResults?.map((anime) => (
                 <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
                     <img src={anime.images.jpg.large_image_url} alt={anime.title} />
                 </Link>

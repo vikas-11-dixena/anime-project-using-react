@@ -33,7 +33,7 @@ function HomePage() {
                 </div>
                 <div className="search-container">
                     <div className="filter-btn popular-filter">
-                        <button onClick={() => { setRendered('popular'); getPopularAnime(); }}>Popular</button>
+                        <button onClick={() => { setRendered('popular'); getPopularAnime(); }}>Popular<i class="fa-solid fa-fire"></i></button>
                     </div>
                     <form action="" className="search-form" onSubmit={handleSubmit}>
                         <div className="input-control">
