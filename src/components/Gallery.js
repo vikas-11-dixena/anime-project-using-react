@@ -21,7 +21,7 @@ function Gallery() {
     <GalleryStyled>
         <div className='back'>
           <Link to="/">
-            <i class="fa-solid fa-arrow-left"></i>
+            <i className="fa-solid fa-arrow-left"></i>
               Back to home
           </Link>
         </div>
